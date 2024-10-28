@@ -10,3 +10,24 @@ colorInput.addEventListener('input', (event) =>{
 clearCanvasButton.addEventListener('click', () => {
     ctx.clearRect(0,0,canvas.width,canvas.height);
 })
+
+//Task 2: Configure the JavaScript for Drawing Context
+let drawing = false
+canvas.addEventListener('mousedown', () => {
+    drawing = true
+    ctx.beginPath()
+});
+canvas.addEventListener('mousemove', (event) => {
+    if (drawing) {
+        ctx.lineTo(event.offsetX, event.offsetY)
+        ctx.stroke()
+    }
+});
+canvas.addEventListener('mouseup', () => {
+    drawing = false
+    ctx.closePath()
+});
+canvas.addEventListener('mouseout',() => {
+    drawing=false
+    ctx.closePath();
+})

@@ -13,21 +13,52 @@ clearCanvasButton.addEventListener('click', () => {
 
 //Task 2: Configure the JavaScript for Drawing Context
 let drawing = false
-canvas.addEventListener('mousedown', () => {
-    drawing = true
-    ctx.beginPath()
-});
-canvas.addEventListener('mousemove', (event) => {
-    if (drawing) {
-        ctx.lineTo(event.offsetX, event.offsetY)
-        ctx.stroke()
-    }
-});
-canvas.addEventListener('mouseup', () => {
-    drawing = false
-    ctx.closePath()
-});
-canvas.addEventListener('mouseout',() => {
-    drawing=false
-    ctx.closePath();
-})
+
+if (document.querySelector('input[value="pencil"]')) {
+    canvas.addEventListener('mousedown', () => {
+        drawing = true
+        ctx.beginPath()
+    });
+    
+    canvas.addEventListener('mousemove', (event) => {
+        if (drawing) {
+            ctx.lineTo(event.offsetX, event.offsetY)
+            ctx.stroke()
+        }
+    });
+    
+    canvas.addEventListener('mouseup', () => {
+        drawing = false
+        ctx.closePath()
+    });
+    
+    canvas.addEventListener('mouseout',() => {
+        drawing=false
+        ctx.closePath();
+    })
+} 
+
+//Task3: Implement Shape Drawing Logic
+if (document.querySelector('input[value="pencil"]')) {
+    let startX, startY;
+
+    canvas.addEventListener('mousedown', (event) => {
+        drawing = true
+        startX=event.offsetX;
+        startY=event.offsetY;
+    })
+
+    canvas.addEventListener('mousemove',(event)=> {
+        if (drawing){
+            ctx.clearRect(0,0,canvas.width,canvas.height)
+            ctx.beginPath();
+            ctx.rect(startX,startY,event.offsetX-startX,event.offsetY-startY)
+            ctx.stroke()
+        }
+    });
+
+    canvas.addEventListener('mouseout',() =>{
+        drawing=false
+        ctx.closePath()
+    })
+}
